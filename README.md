@@ -47,7 +47,7 @@ The short version: **it's the first image model that behaves less like a toy and
 
 </div>
 
-<sub>Headline, tagline, and on-pack copy all rendered correctly in a single generation — no post-production text layer.</sub>
+<sub>The same NORTHBOUND bottle from above, turned into a finished poster with the hero attached as a reference — headline, tagline, and on-pack copy all rendered correctly in a single generation, no post-production text layer.</sub>
 
 ---
 
