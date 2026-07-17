@@ -43,7 +43,7 @@ The short version: **it's the first image model that behaves less like a toy and
 
 <div align="center">
 
-<img src="examples/02_poster_text.png" width="440" alt="Campaign poster with legible headline: SLOW BREW. FAST MORNINGS.">
+<img src="examples/02_poster.png" width="440" alt="Campaign poster with legible headline: SLOW BREW. FAST MORNINGS.">
 
 </div>
 
