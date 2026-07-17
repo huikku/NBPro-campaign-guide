@@ -51,6 +51,39 @@ The short version: **it's the first image model that behaves less like a toy and
 
 ---
 
+## Which tier? Pro vs 2 vs Lite
+
+The Nano Banana family ships in tiers. I ran the **same prompt at the same seed** through each — a text-heavy poster and a photographic scene — and timed them.
+
+**Text prompt** — *"SLOW BREW. FAST MORNINGS."* headline + small on-pack copy:
+
+![Pro vs 2 vs 2-Lite vs Lite — the text poster prompt](compare/poster_cmp.png)
+
+**Photographic prompt** — a lit product scene, no brand specified:
+
+![Pro vs 2 vs 2-Lite vs Lite — the photographic scene prompt](compare/scene_cmp.png)
+
+| Tier | Endpoint | Time | Output | Price | Controls |
+|---|---|---:|---|---|---|
+| **Pro** | `fal-ai/nano-banana-pro` | ~31s | ~6 MB · 2K | **$0.15**/img | 1K / 2K / 4K · web-search grounding |
+| **2** | `fal-ai/nano-banana-2` | ~20s | ~6 MB · 2K | **$0.08**/img | 0.5K–4K · `thinking_level` |
+| **Lite** | `google/nano-banana-lite` | **~6s** | ~1 MB · ~1K | **$1.00**/unit | none (fixed) |
+
+**The read:**
+
+- **Nano Banana 2 is the value pick.** Richest, most photoreal result at 2K *and* the cleanest small text (full legible on-pack copy) — at half Pro's price.
+- **Pro** is the most restrained and controllable: clean minimal layouts, up to 4K, and web-search grounding. Reach for it when you need 4K or the text absolutely cannot fail.
+- **Lite** is the sketchpad — **4–6× faster** (~6s), but ~1K and soft, and it's the only tier that *garbled small text* ("PREMIUM SHUUTO"). Great for rapid ideation, not for finals.
+
+**Two things worth knowing:**
+
+1. **The two Lite endpoints are identical.** `google/nano-banana-lite` and `google/nano-banana-2-lite` produced pixel-for-pixel the same image at the same seed — treat them as one model.
+2. **"Lite" isn't cheaper.** At **$1.00/unit** it costs *more* per image than Pro or 2 unless a "unit" is fractional — confirm what a unit is before leaning on it for volume. Its only real edge is speed.
+
+> **Rule of thumb:** draft on **Lite** (speed), produce on **2** (quality + value), finish on **Pro** when you need 4K or bulletproof text.
+
+---
+
 ## Part 1 · The one-photo-to-campaign workflow
 
 This is the workflow behind *"one product photo → 47 variations in 12 minutes."* Here's how to run it for real.
