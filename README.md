@@ -92,6 +92,42 @@ The Nano Banana family ships in tiers. I ran the **same prompt at the same seed*
 
 ---
 
+## Run it yourself — the Claude skill
+
+Everything above was produced with a Claude skill that ships in this repo: **[`nano-banana-campaign`](skills/nano-banana-campaign/)**. It teaches Claude the endpoints, the fal.ai queue pattern, and — most importantly — the *master-first method*, plus a dependency-free CLI that reduces the whole flow to two verbs.
+
+**Install** (Claude Code):
+
+```bash
+cp -r skills/nano-banana-campaign ~/.claude/skills/
+export FAL_KEY=…   # your fal.ai key; the CLI reads it from the environment
+```
+
+Then just ask Claude to *"mint a product master and build a kitchen + gym variation of it"* — it drives the workflow. Or run the CLI ([`nb.js`](skills/nano-banana-campaign/nb.js)) directly:
+
+```bash
+cd ~/.claude/skills/nano-banana-campaign
+
+# 1 · mint ONE master (front / three-quarter / label-detail turnaround)
+node nb.js gen  --model 2   --prompt "studio product reference sheet: three views of the same bottle…" \
+                --aspect 3:2 --out master.png
+
+# 2 · derive every scene by ATTACHING the master — change only the world, keep the product
+node nb.js edit --model 2   --ref master.png --aspect 4:5 --out kitchen.png \
+                --prompt "…on a sunlit kitchen counter… keep the product and label identical"
+node nb.js edit --model pro --ref master.png --aspect 4:5 --out poster.png \
+                --prompt "…campaign poster, headline exactly: \"SLOW BREW.  FAST MORNINGS.\""
+
+# 3 · fair tier bake-off — same ref + prompt + seed across all four models
+for m in pro 2 2lite lite; do
+  node nb.js edit --model $m --ref master.png --seed 11 --aspect 4:5 --out "cmp_$m.png" --prompt "…"
+done
+```
+
+`--model pro|2|lite|2lite` · `--ref` repeatable (up to 14) · `--res 1K|2K|4K` (Pro/2) · `--seed N`. The reproducible generator behind this guide's own images lives in [`scripts/generate-consistency-examples.js`](scripts/generate-consistency-examples.js).
+
+---
+
 ## Part 1 · The one-photo-to-campaign workflow
 
 This is the workflow behind *"one product photo → 47 variations in 12 minutes."* Here's how to run it for real.
