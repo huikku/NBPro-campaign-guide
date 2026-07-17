@@ -96,14 +96,25 @@ The Nano Banana family ships in tiers. I ran the **same prompt at the same seed*
 
 Everything above was produced with a Claude skill that ships in this repo: **[`nano-banana-campaign`](skills/nano-banana-campaign/)**. It teaches Claude the endpoints, the fal.ai queue pattern, and — most importantly — the *master-first method*, plus a dependency-free CLI that reduces the whole flow to two verbs.
 
-**Install** (Claude Code):
+### Get set up (≈2 min) — you need one API key
 
-```bash
-cp -r skills/nano-banana-campaign ~/.claude/skills/
-export FAL_KEY=…   # your fal.ai key; the CLI reads it from the environment
-```
+**No key yet? Paste this into Claude Code** and it'll walk you through getting one and generating your first image:
 
-Then just ask Claude to *"mint a product master and build a kitchen + gym variation of it"* — it drives the workflow. Or run the CLI ([`nb.js`](skills/nano-banana-campaign/nb.js)) directly:
+> *I want to start generating on-brand product images with the nano-banana-campaign workflow. Ask whether I have a fal.ai or Google Gemini key (tell me where to get one if not), set up the fastest way to call the models from here, then generate my first product master and one variation to prove consistency. One step at a time; never print my key.*
+
+Full walkthrough: **[ONBOARDING.md](ONBOARDING.md)**. The three ways to call the models:
+
+| | How | Best for |
+|---|---|---|
+| **Official fal MCP** | `claude mcp add --transport http fal-ai https://mcp.fal.ai/mcp --header "Authorization: Bearer YOUR_FAL_KEY"` | Native Claude tools, zero code. Key ([fal.ai/dashboard/keys](https://fal.ai/dashboard/keys)) sent per-request, never stored. |
+| **The `nb.js` CLI** (below) | `cp -r skills/nano-banana-campaign ~/.claude/skills/` + `export FAL_KEY=…` | Transparent, scriptable, reproducible — it made this guide. |
+| **Google Gemini key** | Key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey) → GenAI SDK or a Nano Banana MCP | Bring your own Google key, often cheapest. IDs: Pro `gemini-3-pro-image`, 2 `gemini-3.1-flash-image`. |
+
+*(Want video too? [Higgsfield's hosted MCP](https://higgsfield.ai/mcp) adds Nano Banana Pro alongside Sora / Veo / Kling.)*
+
+### Drive it
+
+Once installed, just ask Claude to *"mint a product master and build a kitchen + gym variation of it"* — it drives the workflow. Or run the CLI ([`nb.js`](skills/nano-banana-campaign/nb.js)) directly:
 
 ```bash
 cd ~/.claude/skills/nano-banana-campaign

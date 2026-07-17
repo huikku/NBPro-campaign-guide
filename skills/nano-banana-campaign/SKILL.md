@@ -19,11 +19,40 @@ The single most important rule: **consistency comes from a reference image, not 
 - `…-lite` and `…-2-lite` return the same pixels at the same seed. Treat them as one model.
 - "Lite" bills per *unit*, not per image — at $1.00 it can cost more than Pro/2. Its only edge is speed (~7s vs ~22–33s). Confirm what a "unit" is before volume use.
 
-## Auth
+## Getting a key (help the user do this)
 
-`FAL_KEY` must be in the environment. Never print it.
-- This user keeps it in Railway (project `precious-curiosity`): run any script with `railway run node …` from the `alienrobot-server` repo to inject it.
-- Otherwise: `export FAL_KEY=…` (or source it) before running.
+Two providers reach the same Nano Banana models. Never print a key back to the user.
+
+| Provider | Where to get the key | What you get | Best for |
+|---|---|---|---|
+| **fal.ai** | <https://fal.ai/dashboard/keys> → `FAL_KEY` | Nano Banana Pro/2/Lite + 1,000+ other models, one key | This skill / the `nb.js` CLI, and the official fal MCP |
+| **Google Gemini** | <https://aistudio.google.com/apikey> → `GEMINI_API_KEY` | Nano Banana direct from Google, often cheapest | Bring-your-own-Google-key; SDK or a community MCP |
+
+Then put it in the environment (`export FAL_KEY=…` or `export GEMINI_API_KEY=…`), or source it from a secret manager (e.g. `railway run …` if it lives in Railway). `nb.js` reads `FAL_KEY`.
+
+## Running from Claude — MCP vs CLI
+
+**Two ways to actually call the models:**
+
+1. **Official fal MCP (recommended — native tools, no code).** One command wires every fal model in as a Claude tool:
+   ```bash
+   claude mcp add --transport http fal-ai https://mcp.fal.ai/mcp \
+     --header "Authorization: Bearer YOUR_FAL_KEY"
+   ```
+   Stateless, free (you pay only for runs), key sent per-request and never stored. After this, just ask Claude to generate/edit — it picks the model and runs it.
+2. **The `nb.js` CLI (in this repo).** Transparent, dependency-free, reproducible, and it's what generated this guide. Use when you want scripted/batch runs or exact control.
+
+**Gemini-direct model IDs** (if using a Google key via the GenAI SDK or a Nano Banana MCP): Nano Banana Pro = `gemini-3-pro-image`, Nano Banana 2 = `gemini-3.1-flash-image`, 2 Lite = `gemini-3.1-flash-lite-image`, legacy = `gemini-2.5-flash-image`. **Higgsfield** also exposes Nano Banana Pro (plus video) via its own hosted MCP at `https://mcp.higgsfield.ai/mcp` (OAuth, credit-based).
+
+## Onboarding a new user
+
+When someone arrives with nothing set up, walk them through it one step at a time:
+1. **Ask which key they have** — fal.ai or Google Gemini — or send them to the table above to get one. Say roughly what it costs (fal: ~$0.08/img on model 2; Gemini: per Google's pricing).
+2. **Pick a path:** fal key → offer the official fal MCP (fastest) *or* the `nb.js` CLI. Gemini key → the GenAI SDK or a Nano Banana MCP.
+3. **Confirm the key works** with one cheap generation (model `2`, a throwaway prompt).
+4. **Generate their first master** from a photo they provide (`edit`) or a text prompt (`gen`), then make one variation to prove consistency. Teach the method while doing it: one master, attached to everything.
+
+Never print or echo the key. If a step writes the key to a config file (the MCP command does), tell them where it lands.
 
 ## The queue API pattern
 
