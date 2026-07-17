@@ -1,6 +1,6 @@
 <div align="center">
 
-![Nano Banana Pro — The Creative Team's Field Guide](assets/hero.png)
+![Nano Banana Pro — The Creative Team's Field Guide](assets/hero-v2.png)
 
 # Nano Banana Pro: The Creative Team's Field Guide
 
@@ -18,7 +18,7 @@
 
 The short version: **it's the first image model that behaves less like a toy and more like a junior production artist who never sleeps.**
 
-![Six capabilities that move it from toy to production](assets/capabilities.png)
+![Six capabilities that move it from toy to production](assets/capabilities-v2.png)
 
 | Capability | Why it matters for teams |
 |---|---|
@@ -145,7 +145,7 @@ done
 
 This is the workflow behind *"one product photo → 47 variations in 12 minutes."* Here's how to run it for real.
 
-![One hero shot in, a whole campaign out — the four-step workflow](assets/workflow.png)
+![One hero shot in, a whole campaign out — the four-step workflow](assets/workflow-v2.png)
 
 ### ① Build your reference kit
 Before you generate anything, assemble your inputs:
@@ -256,10 +256,10 @@ The teams that win with this won't be the ones who generate the most images. The
 
 <div align="center">
 
-<img src="https://img.shields.io/badge/model-Gemini%203%20Pro%20Image-E9A14B?style=flat-square&labelColor=131417" alt="Gemini 3 Pro Image">&nbsp;
-<img src="https://img.shields.io/badge/output-1K%20·%202K%20·%204K-D98452?style=flat-square&labelColor=131417" alt="1K 2K 4K">&nbsp;
-<img src="https://img.shields.io/badge/references-up%20to%2014-8C5742?style=flat-square&labelColor=131417" alt="14 references">&nbsp;
-<img src="https://img.shields.io/badge/identities-up%20to%205-56B8C0?style=flat-square&labelColor=131417" alt="5 identities">
+<img src="https://img.shields.io/badge/model-Gemini%203%20Pro%20Image-00c8ff?style=flat-square&labelColor=0a0a0a" alt="Gemini 3 Pro Image">&nbsp;
+<img src="https://img.shields.io/badge/output-1K%20·%202K%20·%204K-7fdfff?style=flat-square&labelColor=0a0a0a" alt="1K 2K 4K">&nbsp;
+<img src="https://img.shields.io/badge/references-up%20to%2014-0077aa?style=flat-square&labelColor=0a0a0a" alt="14 references">&nbsp;
+<img src="https://img.shields.io/badge/identities-up%20to%205-ff7f50?style=flat-square&labelColor=0a0a0a" alt="5 identities">
 
 <br><br>
 
