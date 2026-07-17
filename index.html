@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nano Banana — The Creative Team's Field Guide</title>
+<meta name="description" content="One product photo in, a whole campaign out. A progressive, beginner-to-advanced guide to consistent brand imagery with Google's Nano Banana models — onboarding prompts, a Claude skill, a CLI, and MCP servers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Jura:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --darker:#080808; --dark:#121212; --panel:#0f0f16; --panel2:#16161f; --line:#20202b; --line2:#2c2c3a;
+  --light:#f0f0f0; --sub:#a6a6c0; --muted:#6a6a8a;
+  --primary:#00c8ff; --primary-light:#7fdfff; --primary-dark:#0077aa; --coral:#ff7f50;
+  --display:"Jura",sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace; --body:"Inter",system-ui,sans-serif;
+  --max:1080px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{background:var(--darker);color:var(--light);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
+.hi{color:var(--primary)} .hi2{color:var(--primary-light)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(8,8,8,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.02em;white-space:nowrap}
+.brand svg{width:19px;height:14px;filter:drop-shadow(0 0 5px rgba(0,200,255,.55))}
+nav .links{display:flex;gap:22px;margin-left:auto;font-family:var(--mono);font-size:12.5px;letter-spacing:.03em;color:var(--sub)}
+nav .links a{text-decoration:none;transition:color .15s}
+nav .links a:hover{color:var(--primary-light)}
+nav .links .gh{color:var(--primary)}
+@media(max-width:760px){nav .links{display:none}}
+
+/* hero */
+header.hero{padding:76px 0 56px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+header.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 82% -10%,rgba(0,200,255,.12),transparent 58%);pointer-events:none}
+.kick{font-family:var(--mono);font-size:12.5px;font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--muted)}
+.kick b{color:var(--primary);font-weight:600}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,7vw,72px);line-height:1.0;letter-spacing:-.01em;margin:18px 0 0;text-transform:uppercase}
+h1 .hi{text-shadow:0 0 26px rgba(0,200,255,.45)}
+.lede{font-size:clamp(17px,2.4vw,21px);color:var(--sub);max-width:640px;margin-top:22px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13.5px;font-weight:600;letter-spacing:.02em;text-decoration:none;padding:12px 20px;border-radius:8px;border:1px solid transparent;transition:transform .12s,background .15s,border-color .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--primary);color:#04121a;box-shadow:0 0 20px rgba(0,200,255,.28)}
+.btn.primary:hover{background:var(--primary-light)}
+.btn.ghost{border-color:var(--line2);color:var(--light)}
+.btn.ghost:hover{border-color:var(--primary);color:var(--primary)}
+.hero-img{margin-top:44px;border:1px solid var(--line2);border-radius:14px;overflow:hidden;box-shadow:0 0 40px rgba(0,200,255,.06)}
+
+/* tracks */
+.track{padding:66px 0;border-bottom:1px solid var(--line)}
+.track-head{display:flex;align-items:flex-start;gap:22px;margin-bottom:34px}
+.tnum{font-family:var(--mono);font-weight:700;font-size:15px;color:var(--primary);border:1px solid var(--line2);border-radius:8px;padding:7px 11px;line-height:1;white-space:nowrap;margin-top:6px;box-shadow:0 0 14px rgba(0,200,255,.12) inset}
+.chip{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--primary);border:1px solid rgba(0,200,255,.35);border-radius:999px;padding:4px 11px}
+.chip.b{color:var(--primary-light);border-color:rgba(127,223,255,.4)}
+.chip.a{color:var(--coral);border-color:rgba(255,127,80,.42)}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,4.6vw,42px);line-height:1.04;letter-spacing:-.01em;margin:12px 0 0}
+.track p{color:var(--sub);max-width:660px;margin-top:16px;font-size:16.5px}
+.track p strong{color:var(--light);font-weight:600}
+h3{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:0;margin:38px 0 4px}
+.sublabel{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:40px 0 14px}
+
+/* cards */
+.grid{display:grid;gap:16px;margin-top:22px}
+.grid.two{grid-template-columns:1fr 1fr}
+.grid.three{grid-template-columns:repeat(3,1fr)}
+@media(max-width:720px){.grid.two,.grid.three{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;transition:border-color .15s}
+.card:hover{border-color:var(--line2)}
+.card h4{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:0}
+.card p{margin-top:8px;font-size:14.5px;color:var(--sub)}
+.card .k{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:12px;word-break:break-all}
+.card a.lnk{color:var(--primary);text-decoration:none;font-family:var(--mono);font-size:12.5px;border-bottom:1px solid rgba(0,200,255,.35)}
+.steps{list-style:none;display:grid;gap:14px;margin-top:22px}
+.steps li{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--primary);border-radius:10px;padding:16px 18px}
+.steps li b{font-family:var(--display);font-size:16px;font-weight:600}
+.steps li .n{font-family:var(--mono);font-size:12px;color:var(--primary);letter-spacing:.1em}
+.steps li p{margin-top:5px;color:var(--sub);font-size:14.5px;max-width:none}
+
+/* code */
+.code{background:#0a0a0f;border:1px solid var(--line2);border-radius:11px;overflow:hidden;margin-top:18px}
+.code__bar{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);background:var(--panel2)}
+.code__name{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.code__name b{color:var(--primary);font-weight:600}
+.copy{margin-left:auto;font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--sub);background:transparent;border:1px solid var(--line2);border-radius:6px;padding:5px 11px;cursor:pointer;transition:.15s}
+.copy:hover{color:var(--primary);border-color:var(--primary)}
+.copy.ok{color:#04121a;background:var(--primary);border-color:var(--primary)}
+.code pre{margin:0;padding:16px;overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.65;color:#dfe6ea;white-space:pre}
+.code.prompt pre{white-space:pre-wrap;color:var(--light)}
+
+/* table */
+.tablewrap{overflow-x:auto;margin-top:22px;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14px}
+th,td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;background:var(--panel2)}
+tr:last-child td{border-bottom:none}
+td b{color:var(--light)} td .mono{font-size:12.5px;color:var(--primary)} td .sub{color:var(--muted);font-size:12.5px}
+.fig{margin-top:26px;border:1px solid var(--line2);border-radius:12px;overflow:hidden}
+.cap{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:10px;letter-spacing:.02em}
+ul.plain{margin:18px 0 0;padding-left:0;list-style:none;display:grid;gap:11px}
+ul.plain li{padding-left:22px;position:relative;color:var(--sub);font-size:15px;max-width:660px}
+ul.plain li::before{content:"→";position:absolute;left:0;color:var(--primary);font-family:var(--mono)}
+ul.plain li b{color:var(--light);font-weight:600}
+.callout{margin-top:26px;background:linear-gradient(90deg,rgba(0,200,255,.08),transparent);border:1px solid var(--line);border-left:3px solid var(--primary);border-radius:10px;padding:16px 18px;color:var(--sub);font-size:14.5px}
+.callout b{color:var(--light)}
+
+/* footer */
+footer{padding:56px 0 64px;text-align:center}
+.mk{display:inline-flex;align-items:center;gap:11px;font-family:var(--display);font-weight:700;font-size:19px}
+.mk svg{width:24px;height:18px;filter:drop-shadow(0 0 6px rgba(0,200,255,.5))}
+footer .who{font-family:var(--mono);font-size:13px;color:var(--sub);margin-top:12px}
+footer .who a{color:var(--primary);text-decoration:none}
+footer .fine{font-size:12px;color:var(--muted);margin-top:22px;font-family:var(--mono)}
+::selection{background:rgba(0,200,255,.28)}
+</style>
+</head>
+<body>
+
+<template id="invader"><svg viewBox="0 0 11 8" shape-rendering="crispEdges" fill="#00c8ff"><rect x="2" y="0" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="3" y="1" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="5" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="7" y="2" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="5" y="3" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="8" y="3" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="7" y="4" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="3" y="5" width="1" height="1"/><rect x="4" y="5" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="7" y="5" width="1" height="1"/><rect x="8" y="5" width="1" height="1"/><rect x="10" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="8" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="3" y="7" width="1" height="1"/><rect x="4" y="7" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/></svg></template>
+
+<nav>
+  <div class="wrap">
+    <span class="brand" data-mk></span>
+    <span class="brand" style="font-weight:500;color:var(--muted);font-size:13px;letter-spacing:.06em">Nano&nbsp;Banana&nbsp;Field&nbsp;Guide</span>
+    <span class="links">
+      <a href="#start">Start</a>
+      <a href="#first">First image</a>
+      <a href="#method">The method</a>
+      <a href="#advanced">Advanced</a>
+      <a class="gh" href="https://github.com/huikku/NBPro-campaign-guide">GitHub ↗</a>
+    </span>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kick">The creative team's <b>field guide</b></div>
+    <h1>One photo in.<br>A <span class="hi">whole campaign</span> out.</h1>
+    <p class="lede">Google's Nano Banana models turn a single hero shot into an entire on-brand campaign — same product, endless contexts. This guide takes you from <em>zero</em> to a repeatable pipeline, one level at a time.</p>
+    <div class="cta">
+      <a class="btn primary" href="#start">Start here →</a>
+      <a class="btn ghost" href="https://github.com/huikku/NBPro-campaign-guide">View the repo</a>
+    </div>
+    <div class="hero-img"><img src="examples/consistency_v2.png" alt="One master bottle rendered into a hero, a kitchen scene, and a gym scene — identical product, three worlds"></div>
+    <p class="cap">One product master → three different worlds. The world changes; the product stays itself.</p>
+  </div>
+</header>
+
+<!-- TRACK 01 -->
+<section class="track" id="start">
+  <div class="wrap">
+    <div class="track-head">
+      <span class="tnum">01</span>
+      <div><span class="chip b">Beginner · start here</span><h2>The whole idea, in one line</h2></div>
+    </div>
+    <p><strong>Mint one master image, then attach it to everything.</strong> That single reference — not the model you pick — is what keeps your product looking like itself across every ad, format, and language. Everything in this guide is a variation on that one move.</p>
+
+    <ol class="steps">
+      <li><span class="n">STEP 1</span><br><b>Get an API key.</b><p>One key from either provider below reaches the same models. Grab one — it takes a minute.</p></li>
+      <li><span class="n">STEP 2</span><br><b>Let Claude set you up.</b><p>Paste the onboarding prompt (next section) into Claude Code. It walks you through the rest and generates your first image.</p></li>
+      <li><span class="n">STEP 3</span><br><b>Mint a master, then vary it.</b><p>Make one clean product image, then drop it into any scene. That's the method — the rest is practice.</p></li>
+    </ol>
+
+    <div class="sublabel">Get a key — pick one</div>
+    <div class="grid two">
+      <div class="card">
+        <h4>fal.ai <span class="hi" style="font-size:13px">· recommended</span></h4>
+        <p>One key reaches Nano Banana Pro / 2 / Lite <em>and</em> 1,000+ other models. Works with the official MCP and the CLI in this repo. ~$0.08 per image on model 2.</p>
+        <div class="k">env: <span class="hi">FAL_KEY</span></div>
+        <p style="margin-top:14px"><a class="lnk" href="https://fal.ai/dashboard/keys">fal.ai/dashboard/keys →</a></p>
+      </div>
+      <div class="card">
+        <h4>Google Gemini</h4>
+        <p>Nano Banana straight from Google, often the cheapest route. Free tier to get going, then pay-as-you-go. Use the GenAI SDK or a community MCP.</p>
+        <div class="k">env: <span class="hi">GEMINI_API_KEY</span></div>
+        <p style="margin-top:14px"><a class="lnk" href="https://aistudio.google.com/apikey">aistudio.google.com/apikey →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACK 02 -->
+<section class="track" id="first">
+  <div class="wrap">
+    <div class="track-head">
+      <span class="tnum">02</span>
+      <div><span class="chip b">Beginner → intermediate</span><h2>Your first image, the easy way</h2></div>
+    </div>
+    <p>Don't want to read docs? <strong>Paste this into Claude Code.</strong> It asks which key you have, tells you where to get one if you don't, wires up the fastest path, and generates your first master — one step at a time.</p>
+
+    <div class="code prompt">
+      <div class="code__bar"><span class="code__name">paste to <b>Claude Code</b></span><button class="copy" type="button">Copy</button></div>
+      <pre>I want to start generating on-brand product/campaign images using the
+nano-banana-campaign workflow (Google's Nano Banana models). Set me up from zero:
+
+1. Ask whether I already have a fal.ai key or a Google Gemini key. If I have
+   neither, tell me exactly where to get one, roughly what it costs, and help
+   me pick between them.
+2. Based on my choice, set up the fastest way to call the models from here:
+   - fal.ai  -> add the official fal MCP server, or use the nb.js CLI in this repo.
+   - Gemini  -> point me at a Nano Banana MCP or the Google GenAI SDK.
+3. Once a key works, generate my first PRODUCT MASTER (from a photo I give you,
+   or a text prompt), then make one variation from it to prove consistency.
+
+Go one step at a time, and never print my API key.</pre>
+    </div>
+
+    <div class="sublabel">Prefer one command? Wire in the official fal MCP</div>
+    <p>This makes every fal model a native Claude tool — no code. The key is sent per request and never stored.</p>
+    <div class="code">
+      <div class="code__bar"><span class="code__name">terminal · <b>claude code</b></span><button class="copy" type="button">Copy</button></div>
+      <pre>claude mcp add --transport http fal-ai https://mcp.fal.ai/mcp \
+  --header "Authorization: Bearer YOUR_FAL_KEY"</pre>
+    </div>
+    <div class="callout"><b>What happens next:</b> ask Claude to “mint a product master and make a kitchen variation.” It picks the model, runs it, and shows you the result. You've done the whole loop.</div>
+  </div>
+</section>
+
+<!-- TRACK 03 -->
+<section class="track" id="method">
+  <div class="wrap">
+    <div class="track-head">
+      <span class="tnum">03</span>
+      <div><span class="chip">Intermediate · the method</span><h2>Master first. Attach it to everything.</h2></div>
+    </div>
+    <p>Before you make a single ad, lock <strong>one</strong> product image — ideally a multi-view master (front, three-quarter, label detail). This is the reference every downstream image inherits from. Lock the logo and label here, once.</p>
+
+    <div class="fig"><img src="examples/00_master.png" alt="Product master — three consistent views of the same bottle with its compass-rose mark"></div>
+    <p class="cap">The master. One product, three angles, one logo — generated once, then attached to everything that follows.</p>
+
+    <div class="sublabel">The CLI — the whole flow is two verbs</div>
+    <p>The <span class="mono hi">nb.js</span> CLI ships in the repo: dependency-free, reproducible, and it's what produced this guide. Install the skill, then:</p>
+    <div class="code">
+      <div class="code__bar"><span class="code__name">1 · mint a master <b>(text-to-image)</b></span><button class="copy" type="button">Copy</button></div>
+      <pre>node nb.js gen  --model 2   --aspect 3:2 --out master.png \
+  --prompt "studio product reference sheet: three views of the SAME bottle, front / three-quarter / label detail"</pre>
+    </div>
+    <div class="code">
+      <div class="code__bar"><span class="code__name">2 · derive scenes <b>(attach the master)</b></span><button class="copy" type="button">Copy</button></div>
+      <pre>node nb.js edit --model pro  --ref master.png --aspect 4:5 --out poster.png \
+  --prompt "campaign poster, keep the product identical, headline exactly: \"SLOW BREW.  FAST MORNINGS.\""</pre>
+    </div>
+
+    <div class="fig"><img src="examples/poster_v2.png" alt="Finished poster with a legible headline, product on-brand from the master"></div>
+    <p class="cap">Text rendered in-image, product held on-brand by the attached master — a finished poster in a single generation.</p>
+
+    <div class="sublabel">Patterns that make it work</div>
+    <ul class="plain">
+      <li><b>Name the consistency target.</b> “Keep this EXACT bottle and its label identical. Do not redesign it.”</li>
+      <li><b>One axis per prompt.</b> Change context <em>or</em> format <em>or</em> copy — never all three. Coherent sets, diagnosable failures.</li>
+      <li><b>Direct, don't wish.</b> “85mm, f/2, soft key camera-left, warm 3200K practicals” beats “make it look nice.”</li>
+      <li><b>Fixed text goes in quotes, verbatim.</b> <span class="mono">reading exactly: "SLOW BREW."</span></li>
+      <li><b>Validate by looking.</b> Open every output; watch for subtle drift (a dropped subline, kerning) and re-roll the ones that slip.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- TRACK 04 -->
+<section class="track" id="advanced">
+  <div class="wrap">
+    <div class="track-head">
+      <span class="tnum">04</span>
+      <div><span class="chip a">Advanced · go pro</span><h2>Tiers, references, and running it your way</h2></div>
+    </div>
+    <p>Once the basics click, the depth is here: pick the right tier, stack multiple references, localize, and choose how you drive the models — a Claude skill, the CLI, or a native MCP server.</p>
+
+    <div class="sublabel">The fair tier bake-off — same master, same seed, four models</div>
+    <p>Attach the master to <em>every</em> model and the comparison measures rendering, not label invention. The headline finding: with a reference attached, <strong>all four tiers hold the same brand.</strong></p>
+    <div class="fig"><img src="compare/poster_cmp_site.png" alt="Pro vs 2 vs 2-Lite vs Lite, poster prompt, master attached"></div>
+    <div class="fig" style="margin-top:14px"><img src="compare/scene_cmp_site.png" alt="Pro vs 2 vs 2-Lite vs Lite, scene prompt, master attached"></div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Tier</th><th>Endpoint</th><th>Time</th><th>Price</th><th>Controls</th></tr></thead>
+        <tbody>
+          <tr><td><b>Pro</b></td><td><span class="mono">fal-ai/nano-banana-pro</span></td><td>~33s</td><td><b>$0.15</b><span class="sub">/img</span></td><td>1K/2K/4K · web-search grounding</td></tr>
+          <tr><td><b>2</b> <span class="sub">· value pick</span></td><td><span class="mono">fal-ai/nano-banana-2</span></td><td>~22s</td><td><b>$0.08</b><span class="sub">/img</span></td><td>0.5K–4K · thinking_level</td></tr>
+          <tr><td><b>Lite</b></td><td><span class="mono">google/nano-banana-lite</span></td><td><b>~7s</b></td><td><b>$1.00</b><span class="sub">/unit</span></td><td>none (fixed ~1K)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">Draft on <b>Lite</b> (speed), produce on <b>2</b> (best value — richest photoreal at 2K, half Pro's price), finish on <b>Pro</b> when you need 4K or web-search grounding. <b>Always attach the master, whichever tier you use.</b> <span class="sub" style="display:block;margin-top:8px;font-family:var(--mono);font-size:12px">Note: the two “Lite” endpoints are pixel-identical — treat them as one model. “Lite” bills per unit, not per image; its only edge is speed.</span></div>
+
+    <div class="sublabel">More levers</div>
+    <ul class="plain">
+      <li><b>Multi-reference (up to 14).</b> Feed shape from one image, logo from another, style from a third — <span class="mono">--ref a.png --ref b.png</span>. The single biggest quality lever.</li>
+      <li><b>Localize as an edit.</b> Swap only the headline copy, keep the master attached. A prompt edit, not a reshoot — native-speaker review still required.</li>
+      <li><b>Reproducible runs.</b> The generator behind this guide's own images is in the repo: <span class="mono hi">scripts/generate-consistency-examples.js</span>.</li>
+    </ul>
+
+    <div class="sublabel">Install the Claude skill</div>
+    <p>The <span class="mono hi">nano-banana-campaign</span> skill teaches Claude the endpoints, the queue pattern, the master-first method, and the CLI — so it can drive the whole workflow on request.</p>
+    <div class="code">
+      <div class="code__bar"><span class="code__name">install the skill</span><button class="copy" type="button">Copy</button></div>
+      <pre>cp -r skills/nano-banana-campaign ~/.claude/skills/
+export FAL_KEY=…        # the CLI reads it from the environment</pre>
+    </div>
+
+    <div class="sublabel">Three ways to call the models from Claude</div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Option</th><th>Setup</th><th>Best for</th></tr></thead>
+        <tbody>
+          <tr><td><b>Official fal MCP</b><span class="sub" style="display:block">native tools, no code</span></td><td><span class="mono">claude mcp add --transport http fal-ai https://mcp.fal.ai/mcp --header "Authorization: Bearer YOUR_FAL_KEY"</span></td><td>Conversational use. Key sent per request, never stored; pay only for runs.</td></tr>
+          <tr><td><b>The nb.js CLI</b></td><td><span class="mono">cp -r skills/nano-banana-campaign ~/.claude/skills/</span></td><td>Scripted / batch runs, exact control, reproducibility.</td></tr>
+          <tr><td><b>Gemini direct</b></td><td>Key → GenAI SDK or a Nano Banana MCP. IDs: <span class="mono">gemini-3-pro-image</span>, <span class="mono">gemini-3.1-flash-image</span></td><td>Bring your own Google key. No official Google MCP yet — vet community ones.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><b>Want video too?</b> <a href="https://higgsfield.ai/mcp" style="color:var(--primary);text-decoration:none">Higgsfield's hosted MCP</a> (<span class="mono">mcp.higgsfield.ai/mcp</span>, OAuth, credit-based) exposes Nano Banana Pro alongside Sora / Veo / Kling.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="mk" data-mk></span><span class="mk" style="margin-left:8px">Alienrobot</span>
+    <div class="who">John Huikku · <a href="https://alienrobot.com">alienrobot.com</a> · <a href="https://github.com/huikku/NBPro-campaign-guide" style="color:var(--sub)">github.com/huikku/NBPro-campaign-guide</a></div>
+    <div class="fine">Field guide — not affiliated with Google. “Nano Banana” and “Gemini” are Google's marks.</div>
+  </div>
+</footer>
+
+<script>
+const mk = document.getElementById('invader').innerHTML;
+document.querySelectorAll('[data-mk]').forEach(el => el.insertAdjacentHTML('afterbegin', mk));
+document.querySelectorAll('.copy').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const pre = btn.closest('.code').querySelector('pre');
+    navigator.clipboard.writeText(pre.innerText.trim()).then(() => {
+      const t = btn.textContent; btn.textContent = 'Copied ✓'; btn.classList.add('ok');
+      setTimeout(() => { btn.textContent = t; btn.classList.remove('ok'); }, 1400);
+    });
+  });
+});
+</script>
+</body>
+</html>
