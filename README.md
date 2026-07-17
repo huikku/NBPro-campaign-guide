@@ -6,6 +6,8 @@
 
 ### Turn one product photo into a full campaign — without another production cycle.
 
+**🌐 [Read the companion site → huikku.github.io/NBPro-campaign-guide](https://huikku.github.io/NBPro-campaign-guide/)** · beginner → advanced, with copy-paste onboarding
+
 </div>
 
 ---
